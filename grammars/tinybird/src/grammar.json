@@ -1,0 +1,853 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "tinybird",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "instruction"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "indented_block"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line"
+          }
+        ]
+      }
+    },
+    "comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\n]*"
+        }
+      ]
+    },
+    "instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "instruction_keyword"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "instruction_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "instruction_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "SCHEMA"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_SORTING_KEY"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_PARTITION_KEY"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_TTL"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_VER"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_SIGN"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_VERSION"
+            },
+            {
+              "type": "STRING",
+              "value": "ENGINE_SETTINGS"
+            },
+            {
+              "type": "STRING",
+              "value": "FORWARD_QUERY"
+            },
+            {
+              "type": "STRING",
+              "value": "BACKFILL"
+            },
+            {
+              "type": "STRING",
+              "value": "TOKEN"
+            },
+            {
+              "type": "STRING",
+              "value": "SHARED_WITH"
+            },
+            {
+              "type": "STRING",
+              "value": "DESCRIPTION"
+            },
+            {
+              "type": "STRING",
+              "value": "TAGS"
+            },
+            {
+              "type": "STRING",
+              "value": "NODE"
+            },
+            {
+              "type": "STRING",
+              "value": "SQL"
+            },
+            {
+              "type": "STRING",
+              "value": "TYPE"
+            },
+            {
+              "type": "STRING",
+              "value": "DATASOURCE"
+            },
+            {
+              "type": "STRING",
+              "value": "TARGET_DATASOURCE"
+            },
+            {
+              "type": "STRING",
+              "value": "COPY_SCHEDULE"
+            },
+            {
+              "type": "STRING",
+              "value": "COPY_MODE"
+            },
+            {
+              "type": "STRING",
+              "value": "DEPLOYMENT_METHOD"
+            }
+          ]
+        }
+      }
+    },
+    "instruction_content": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "backtick_identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "data_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "pipe_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "engine_type"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "permission"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "sql_keyword"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "sql_function"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "number"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "arrow"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "operator"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[ \\t]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[,()]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\n]"
+          }
+        ]
+      }
+    },
+    "indented_block": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "backtick_identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "data_type"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_keyword"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "sql_function"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[,()]"
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": -1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[^`\"'\\n\\s,()a-zA-Z0-9]+"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "data_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "AggregateFunction"
+          },
+          {
+            "type": "STRING",
+            "value": "FixedString"
+          },
+          {
+            "type": "STRING",
+            "value": "LowCardinality"
+          },
+          {
+            "type": "STRING",
+            "value": "DateTime"
+          },
+          {
+            "type": "STRING",
+            "value": "DateTime64"
+          },
+          {
+            "type": "STRING",
+            "value": "String"
+          },
+          {
+            "type": "STRING",
+            "value": "Int8"
+          },
+          {
+            "type": "STRING",
+            "value": "Int16"
+          },
+          {
+            "type": "STRING",
+            "value": "Int32"
+          },
+          {
+            "type": "STRING",
+            "value": "Int64"
+          },
+          {
+            "type": "STRING",
+            "value": "UInt8"
+          },
+          {
+            "type": "STRING",
+            "value": "UInt16"
+          },
+          {
+            "type": "STRING",
+            "value": "UInt32"
+          },
+          {
+            "type": "STRING",
+            "value": "UInt64"
+          },
+          {
+            "type": "STRING",
+            "value": "Float32"
+          },
+          {
+            "type": "STRING",
+            "value": "Float64"
+          },
+          {
+            "type": "STRING",
+            "value": "Date"
+          },
+          {
+            "type": "STRING",
+            "value": "Nullable"
+          },
+          {
+            "type": "STRING",
+            "value": "Array"
+          },
+          {
+            "type": "STRING",
+            "value": "Map"
+          },
+          {
+            "type": "STRING",
+            "value": "Tuple"
+          },
+          {
+            "type": "STRING",
+            "value": "Enum8"
+          },
+          {
+            "type": "STRING",
+            "value": "Enum16"
+          },
+          {
+            "type": "STRING",
+            "value": "UUID"
+          }
+        ]
+      }
+    },
+    "pipe_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ENDPOINT"
+          },
+          {
+            "type": "STRING",
+            "value": "MATERIALIZED"
+          },
+          {
+            "type": "STRING",
+            "value": "COPY"
+          },
+          {
+            "type": "STRING",
+            "value": "SINK"
+          }
+        ]
+      }
+    },
+    "engine_type": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "MergeTree"
+          },
+          {
+            "type": "STRING",
+            "value": "ReplacingMergeTree"
+          },
+          {
+            "type": "STRING",
+            "value": "CollapsingMergeTree"
+          },
+          {
+            "type": "STRING",
+            "value": "VersionedCollapsingMergeTree"
+          }
+        ]
+      }
+    },
+    "permission": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "READ"
+          },
+          {
+            "type": "STRING",
+            "value": "APPEND"
+          }
+        ]
+      }
+    },
+    "sql_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "SELECT"
+          },
+          {
+            "type": "STRING",
+            "value": "FROM"
+          },
+          {
+            "type": "STRING",
+            "value": "WHERE"
+          },
+          {
+            "type": "STRING",
+            "value": "GROUP"
+          },
+          {
+            "type": "STRING",
+            "value": "ORDER"
+          },
+          {
+            "type": "STRING",
+            "value": "LIMIT"
+          },
+          {
+            "type": "STRING",
+            "value": "OFFSET"
+          },
+          {
+            "type": "STRING",
+            "value": "JOIN"
+          },
+          {
+            "type": "STRING",
+            "value": "LEFT"
+          },
+          {
+            "type": "STRING",
+            "value": "RIGHT"
+          },
+          {
+            "type": "STRING",
+            "value": "INNER"
+          },
+          {
+            "type": "STRING",
+            "value": "ON"
+          },
+          {
+            "type": "STRING",
+            "value": "AND"
+          },
+          {
+            "type": "STRING",
+            "value": "OR"
+          },
+          {
+            "type": "STRING",
+            "value": "NOT"
+          },
+          {
+            "type": "STRING",
+            "value": "IN"
+          },
+          {
+            "type": "STRING",
+            "value": "AS"
+          },
+          {
+            "type": "STRING",
+            "value": "BETWEEN"
+          },
+          {
+            "type": "STRING",
+            "value": "LIKE"
+          },
+          {
+            "type": "STRING",
+            "value": "IS"
+          },
+          {
+            "type": "STRING",
+            "value": "NULL"
+          },
+          {
+            "type": "STRING",
+            "value": "DISTINCT"
+          },
+          {
+            "type": "STRING",
+            "value": "HAVING"
+          },
+          {
+            "type": "STRING",
+            "value": "UNION"
+          },
+          {
+            "type": "STRING",
+            "value": "ALTER"
+          },
+          {
+            "type": "STRING",
+            "value": "TABLE"
+          },
+          {
+            "type": "STRING",
+            "value": "MODIFY"
+          },
+          {
+            "type": "STRING",
+            "value": "QUERY"
+          },
+          {
+            "type": "STRING",
+            "value": "BY"
+          }
+        ]
+      }
+    },
+    "sql_function": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "toYYYYMM"
+          },
+          {
+            "type": "STRING",
+            "value": "toStartOfDay"
+          },
+          {
+            "type": "STRING",
+            "value": "toStartOfHour"
+          },
+          {
+            "type": "STRING",
+            "value": "toStartOfMonth"
+          },
+          {
+            "type": "STRING",
+            "value": "toIntervalDay"
+          },
+          {
+            "type": "STRING",
+            "value": "toIntervalHour"
+          },
+          {
+            "type": "STRING",
+            "value": "toIntervalMonth"
+          },
+          {
+            "type": "STRING",
+            "value": "now"
+          },
+          {
+            "type": "STRING",
+            "value": "today"
+          },
+          {
+            "type": "STRING",
+            "value": "yesterday"
+          },
+          {
+            "type": "STRING",
+            "value": "sum"
+          },
+          {
+            "type": "STRING",
+            "value": "count"
+          },
+          {
+            "type": "STRING",
+            "value": "avg"
+          },
+          {
+            "type": "STRING",
+            "value": "min"
+          },
+          {
+            "type": "STRING",
+            "value": "max"
+          },
+          {
+            "type": "STRING",
+            "value": "uniq"
+          },
+          {
+            "type": "STRING",
+            "value": "groupArray"
+          },
+          {
+            "type": "STRING",
+            "value": "anyState"
+          },
+          {
+            "type": "STRING",
+            "value": "minState"
+          },
+          {
+            "type": "STRING",
+            "value": "maxState"
+          },
+          {
+            "type": "STRING",
+            "value": "countState"
+          },
+          {
+            "type": "STRING",
+            "value": "sumState"
+          },
+          {
+            "type": "STRING",
+            "value": "avgState"
+          }
+        ]
+      }
+    },
+    "string": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "\""
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^\"]*"
+              },
+              {
+                "type": "STRING",
+                "value": "\""
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "'"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^']*"
+              },
+              {
+                "type": "STRING",
+                "value": "'"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "backtick_identifier": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "`"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^`]*"
+          },
+          {
+            "type": "STRING",
+            "value": "`"
+          }
+        ]
+      }
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?"
+    },
+    "arrow": {
+      "type": "STRING",
+      "value": ">"
+    },
+    "operator": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "="
+          },
+          {
+            "type": "STRING",
+            "value": ">="
+          },
+          {
+            "type": "STRING",
+            "value": "<="
+          },
+          {
+            "type": "STRING",
+            "value": "!="
+          },
+          {
+            "type": "STRING",
+            "value": "<>"
+          },
+          {
+            "type": "STRING",
+            "value": "+"
+          },
+          {
+            "type": "STRING",
+            "value": "-"
+          },
+          {
+            "type": "STRING",
+            "value": "*"
+          },
+          {
+            "type": "STRING",
+            "value": "/"
+          },
+          {
+            "type": "STRING",
+            "value": "%"
+          }
+        ]
+      }
+    },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "_line": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -2,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\n# \\t][^\\n]*"
+        }
+      }
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\n"
+    }
+  ],
+  "conflicts": [
+    [
+      "instruction",
+      "instruction_content"
+    ]
+  ],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": [],
+  "reserved": {}
+}

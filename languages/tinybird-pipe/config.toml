@@ -1,0 +1,6 @@
+name = "Tinybird Pipe"
+grammar = "tinybird"
+path_suffixes = ["pipe"]
+line_comments = ["# "]
+tab_size = 2
+hard_tabs = false
