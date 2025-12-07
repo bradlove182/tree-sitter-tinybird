@@ -61,6 +61,8 @@ module.exports = grammar({
     instruction_content: $ => repeat1(
       choice(
         $.string,
+        $.template_block,
+        $.template_expression,
         $.backtick_identifier,
         $.data_type,
         $.pipe_type,
@@ -83,6 +85,8 @@ module.exports = grammar({
       /[ \t]+/,
       repeat(
         choice(
+          $.template_block,
+          $.template_expression,
           $.backtick_identifier,
           $.data_type,
           $.string,
@@ -141,7 +145,8 @@ module.exports = grammar({
       'LIMIT', 'OFFSET', 'JOIN', 'LEFT', 'RIGHT', 'INNER',
       'ON', 'AND', 'OR', 'NOT', 'IN', 'AS', 'BETWEEN',
       'LIKE', 'IS', 'NULL', 'DISTINCT', 'HAVING', 'UNION',
-      'ALTER', 'TABLE', 'MODIFY', 'QUERY', 'BY'
+      'ALTER', 'TABLE', 'MODIFY', 'QUERY', 'BY',
+      'DESC', 'ASC'
     )),
 
     sql_function: $ => token(choice(
@@ -179,6 +184,39 @@ module.exports = grammar({
       'JSONExtractString', 'JSONExtractInt', 'JSONExtractFloat',
       'JSONExtractBool', 'JSONExtractRaw',
       'array', 'has', 'indexOf'
+    )),
+
+    // Templating
+    template_block: $ => seq(
+      '{%',
+      repeat(choice(
+        $.template_keyword,
+        $.identifier,
+        $.number,
+        $.string,
+        $.operator,
+        /[ \t\n]/,
+        /[,()]/
+      )),
+      '%}'
+    ),
+
+    template_expression: $ => seq(
+      '{{',
+      repeat(choice(
+        $.sql_function, // allow function calls inside {{ }}
+        $.identifier,
+        $.number,
+        $.string,
+        $.operator,
+        /[ \t\n]/,
+        /[,()]/
+      )),
+      '}}'
+    ),
+
+    template_keyword: $ => token(choice(
+      'if', 'else', 'elif', 'end', 'for', 'in', 'defined'
     )),
 
     string: $ => token(choice(
