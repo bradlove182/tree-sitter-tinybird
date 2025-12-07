@@ -149,10 +149,36 @@ module.exports = grammar({
       'toYYYYMM', 'toStartOfDay', 'toStartOfHour', 'toStartOfMonth',
       'toIntervalDay', 'toIntervalHour', 'toIntervalMonth',
       'now', 'today', 'yesterday',
+      'toDateTime', 'toDate', 'toDate32', 'toStartOfMinute', 'toStartOfYear', 'toUnixTimestamp',
+      'formatDateTime', 'dateDiff', 'dateAdd',
+
       // Aggregate functions
       'sum', 'count', 'avg', 'min', 'max', 'uniq', 'groupArray',
+      'uniqExact', 'uniqHLL12', 'uniqTheta', 'argMin', 'argMax',
+      'quantile', 'quantiles', 'median', 'any', 'anyLast',
+
       // State functions
-      'anyState', 'minState', 'maxState', 'countState', 'sumState', 'avgState'
+      'anyState', 'minState', 'maxState', 'countState', 'sumState', 'avgState',
+
+      // Merge functions
+      'anyMerge', 'countMerge', 'minMerge', 'maxMerge',
+
+      // String functions
+      'toString', 'length', 'empty', 'notEmpty', 'lower', 'upper', 'trim', 'concat',
+      'substring', 'replace', 'replaceAll',
+
+      // Logic functions
+      'if', 'multiIf', 'coalesce', 'assumeNotNull',
+
+      // Type Conversion functions
+      'toInt8', 'toInt16', 'toInt32', 'toInt64',
+      'toUInt8', 'toUInt16', 'toUInt32', 'toUInt64',
+      'toFloat32', 'toFloat64', 'cast',
+
+      // JSON and Array functions
+      'JSONExtractString', 'JSONExtractInt', 'JSONExtractFloat',
+      'JSONExtractBool', 'JSONExtractRaw',
+      'array', 'has', 'indexOf'
     )),
 
     string: $ => token(choice(

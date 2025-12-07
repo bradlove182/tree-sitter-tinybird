@@ -646,6 +646,42 @@
           },
           {
             "type": "STRING",
+            "value": "toDateTime"
+          },
+          {
+            "type": "STRING",
+            "value": "toDate"
+          },
+          {
+            "type": "STRING",
+            "value": "toDate32"
+          },
+          {
+            "type": "STRING",
+            "value": "toStartOfMinute"
+          },
+          {
+            "type": "STRING",
+            "value": "toStartOfYear"
+          },
+          {
+            "type": "STRING",
+            "value": "toUnixTimestamp"
+          },
+          {
+            "type": "STRING",
+            "value": "formatDateTime"
+          },
+          {
+            "type": "STRING",
+            "value": "dateDiff"
+          },
+          {
+            "type": "STRING",
+            "value": "dateAdd"
+          },
+          {
+            "type": "STRING",
             "value": "sum"
           },
           {
@@ -674,6 +710,46 @@
           },
           {
             "type": "STRING",
+            "value": "uniqExact"
+          },
+          {
+            "type": "STRING",
+            "value": "uniqHLL12"
+          },
+          {
+            "type": "STRING",
+            "value": "uniqTheta"
+          },
+          {
+            "type": "STRING",
+            "value": "argMin"
+          },
+          {
+            "type": "STRING",
+            "value": "argMax"
+          },
+          {
+            "type": "STRING",
+            "value": "quantile"
+          },
+          {
+            "type": "STRING",
+            "value": "quantiles"
+          },
+          {
+            "type": "STRING",
+            "value": "median"
+          },
+          {
+            "type": "STRING",
+            "value": "any"
+          },
+          {
+            "type": "STRING",
+            "value": "anyLast"
+          },
+          {
+            "type": "STRING",
             "value": "anyState"
           },
           {
@@ -695,6 +771,158 @@
           {
             "type": "STRING",
             "value": "avgState"
+          },
+          {
+            "type": "STRING",
+            "value": "anyMerge"
+          },
+          {
+            "type": "STRING",
+            "value": "countMerge"
+          },
+          {
+            "type": "STRING",
+            "value": "minMerge"
+          },
+          {
+            "type": "STRING",
+            "value": "maxMerge"
+          },
+          {
+            "type": "STRING",
+            "value": "toString"
+          },
+          {
+            "type": "STRING",
+            "value": "length"
+          },
+          {
+            "type": "STRING",
+            "value": "empty"
+          },
+          {
+            "type": "STRING",
+            "value": "notEmpty"
+          },
+          {
+            "type": "STRING",
+            "value": "lower"
+          },
+          {
+            "type": "STRING",
+            "value": "upper"
+          },
+          {
+            "type": "STRING",
+            "value": "trim"
+          },
+          {
+            "type": "STRING",
+            "value": "concat"
+          },
+          {
+            "type": "STRING",
+            "value": "substring"
+          },
+          {
+            "type": "STRING",
+            "value": "replace"
+          },
+          {
+            "type": "STRING",
+            "value": "replaceAll"
+          },
+          {
+            "type": "STRING",
+            "value": "if"
+          },
+          {
+            "type": "STRING",
+            "value": "multiIf"
+          },
+          {
+            "type": "STRING",
+            "value": "coalesce"
+          },
+          {
+            "type": "STRING",
+            "value": "assumeNotNull"
+          },
+          {
+            "type": "STRING",
+            "value": "toInt8"
+          },
+          {
+            "type": "STRING",
+            "value": "toInt16"
+          },
+          {
+            "type": "STRING",
+            "value": "toInt32"
+          },
+          {
+            "type": "STRING",
+            "value": "toInt64"
+          },
+          {
+            "type": "STRING",
+            "value": "toUInt8"
+          },
+          {
+            "type": "STRING",
+            "value": "toUInt16"
+          },
+          {
+            "type": "STRING",
+            "value": "toUInt32"
+          },
+          {
+            "type": "STRING",
+            "value": "toUInt64"
+          },
+          {
+            "type": "STRING",
+            "value": "toFloat32"
+          },
+          {
+            "type": "STRING",
+            "value": "toFloat64"
+          },
+          {
+            "type": "STRING",
+            "value": "cast"
+          },
+          {
+            "type": "STRING",
+            "value": "JSONExtractString"
+          },
+          {
+            "type": "STRING",
+            "value": "JSONExtractInt"
+          },
+          {
+            "type": "STRING",
+            "value": "JSONExtractFloat"
+          },
+          {
+            "type": "STRING",
+            "value": "JSONExtractBool"
+          },
+          {
+            "type": "STRING",
+            "value": "JSONExtractRaw"
+          },
+          {
+            "type": "STRING",
+            "value": "array"
+          },
+          {
+            "type": "STRING",
+            "value": "has"
+          },
+          {
+            "type": "STRING",
+            "value": "indexOf"
           }
         ]
       }
