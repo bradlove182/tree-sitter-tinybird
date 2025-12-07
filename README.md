@@ -1,2 +1,2 @@
-# zed-tinybird
-Tinybird syntax highlighting for Zed
+# tree-sitter-tinybird
+Tree-sitter grammar for Tinybird
